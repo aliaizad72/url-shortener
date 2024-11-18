@@ -53,10 +53,12 @@ group :development, :test do
   gem "rubocop-rails-omakase", require: false
 
   # The RSpec testing framework
-    gem 'rspec-rails'
+  gem 'rspec-rails'
 
-    # Capybara, the library that allows us to interact with the browser using Ruby
-    gem 'capybara'
+  # Capybara, the library that allows us to interact with the browser using Ruby
+  gem 'capybara'
+
+  gem 'selenium-webdriver', '~> 4.26'
 end
 
 group :development do
