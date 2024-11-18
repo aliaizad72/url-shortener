@@ -51,10 +51,15 @@ group :development, :test do
 
   # Omakase Ruby styling [https://github.com/rails/rubocop-rails-omakase/]
   gem "rubocop-rails-omakase", require: false
+
+  # The RSpec testing framework
+    gem 'rspec-rails'
+
+    # Capybara, the library that allows us to interact with the browser using Ruby
+    gem 'capybara'
 end
 
 group :development do
   # Use console on exceptions pages [https://github.com/rails/web-console]
   gem "web-console"
 end
-
