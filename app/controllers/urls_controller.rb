@@ -1,11 +1,22 @@
 class UrlsController < ApplicationController
+  def show
+    @url = Url.find(params[:id])
+  end
   def create
     target = params[:url][:target]
     begin
       response = fetch(target)
       title = Nokogiri::HTML(response.body).title
+      title = "Title tag not available" if title.nil?
+      @url = Url.new(target: target, title: title)
+
+      if @url.save
+        redirect_to @url
+      else
+        flash[:alert] = "Shortening process failed"
+        redirect_to root_path
+      end
     rescue Exception => e
-      p e
       flash[:alert] = "#{e}"
       redirect_to root_path
     end
