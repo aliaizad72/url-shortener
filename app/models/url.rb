@@ -1,8 +1,14 @@
 class Url < ApplicationRecord
-  after_create :create_shortened
+  after_create :shortened
 
   validates :target, presence: true
   validates :title, presence: true
+
+  private
+
+  def shortened
+    self.short = to_base62(self.id)
+  end
 
   def to_base62(num)
     quotient = num

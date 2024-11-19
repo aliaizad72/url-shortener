@@ -3,6 +3,7 @@ require 'database_cleaner/active_record'
 
 RSpec.describe Url, type: :model do
   before do
+    DatabaseCleaner.clean_with(:truncation)
     @url = Url.new(
       title: "Google",
       target: "https://www.google.com"
@@ -20,5 +21,10 @@ RSpec.describe Url, type: :model do
     expect(@url.to_base62(20083)).to eq("5Dv")
     expect(@url.to_base62(3245678)).to eq("DcLe")
     expect(@url.to_base62(7983245)).to eq("XUo1")
+  end
+
+  it "after creation id was converted to base62 to be short link" do
+    @url.save
+    expect(@url.short).to eq("1")
   end
 end
