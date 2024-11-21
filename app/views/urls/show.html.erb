@@ -1,3 +1,6 @@
-<%= link_to "Home", root_path %>
-<div>Title: <%= @url.title %></div>
-<div>Target: <%= @url.target %></div>
+<%= link_to "home", root_path %>
+<div class="m-2 py-2 px-4 border-2 border-blue-500 block">
+  <h5 class="font-medium"><%= @url.title %></h5>
+  <div>short link:   <a href="" class="hover:text-blue-500 hover:underline">paut.my/<%= @url.short %></a></div>
+  <div class="">your link: <a href="" class="text-ellipsis hover:text-blue-500 hover:underline"><%= @url.target %></a></div>
+</div>
