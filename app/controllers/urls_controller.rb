@@ -22,12 +22,19 @@ class UrlsController < ApplicationController
     end
   end
   def redirect
+    request_time = Time.new
     ip = request.remote_ip
+
     begin
       location = get_location(ip)
     rescue Exception => e
+      location = {
+        city: "Not available",
+        country: "Not available",
+      }
       p e
     end
+
     @url = Url.find_by(short: params[:short])
     redirect_to(@url.target, allow_other_host: true)
   end
