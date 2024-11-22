@@ -1,4 +1,8 @@
 <div class="flex flex-col justify-center items-center min-h-[75%] text-xl">
-  <%= render 'partials/home' %>
+  <%= render 'partials/navbar' %>
+  <% if flash[:alert] %>
+    <div><%= flash[:alert] %></div>
+  <% end %>
+  <%= render "partials/forms/url", url: @url %>
 </div>
 

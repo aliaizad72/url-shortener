@@ -22,6 +22,12 @@ class UrlsController < ApplicationController
     end
   end
   def redirect
+    ip = request.remote_ip
+    begin
+      location = get_location(ip)
+    rescue Exception => e
+      p e
+    end
     @url = Url.find_by(short: params[:short])
     redirect_to(@url.target, allow_other_host: true)
   end
@@ -47,5 +53,14 @@ class UrlsController < ApplicationController
     else
       response.value
     end
+  end
+
+  def get_location(ip)
+    geo_url = "https://api-bdc.net/data/ip-geolocation?ip=#{ip}&localityLanguage=en&key=#{Rails.application.credentials.bdc_api_key}"
+    response =  JSON.parse(fetch(geo_url).body)
+    {
+      city: response["location"]["city"],
+      country: response["country"]["name"],
+    }
   end
 end
