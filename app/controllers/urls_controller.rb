@@ -27,6 +27,7 @@ class UrlsController < ApplicationController
   end
 
   def preview
+    @new_url = Url.new
     @url = Url.find(params[:id])
   end
 
