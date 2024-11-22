@@ -5,7 +5,7 @@ class Url < ApplicationRecord
   validates :title, presence: true
 
   def shortened
-    self.update(short: to_base62(self.id))
+    self.update(short: "t" + to_base62(self.id))
   end
 
   def to_base62(num)

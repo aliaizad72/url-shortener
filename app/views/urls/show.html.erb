@@ -1,6 +1,6 @@
 <%= link_to "home", root_path %>
-<div class="m-2 py-2 px-4 border-2 border-blue-500 block">
+<div class="mx-4 md:mx-auto my-2 6 py-2 px-4 border-2 border-blue-500 md:w-[768px]">
   <h5 class="font-medium"><%= @url.title %></h5>
-  <div>short link:   <a href="" class="hover:text-blue-500 hover:underline">paut.my/<%= @url.short %></a></div>
-  <div class="">your link: <a href="" class="text-ellipsis hover:text-blue-500 hover:underline"><%= @url.target %></a></div>
+  <div>short link: <a href="http://127.0.0.1:3000/<%= @url.short %>" target="_blank" class="hover:text-blue-500 hover:underline">paut.my/<%= @url.short %></a></div>
+  <div class="">your link: <a href="<%= @url.target %>" target="_blank" class="text-ellipsis hover:text-blue-500 hover:underline"><%= @url.target %></a></div>
 </div>

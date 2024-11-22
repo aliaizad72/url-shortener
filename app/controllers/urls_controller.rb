@@ -21,6 +21,10 @@ class UrlsController < ApplicationController
       redirect_to root_path
     end
   end
+  def redirect
+    @url = Url.find_by(short: params[:short])
+    redirect_to(@url.target, allow_other_host: true)
+  end
 
   private
 
