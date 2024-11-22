@@ -1,10 +1,14 @@
-<div class="flex flex-col justify-center items-center min-h-[75%] text-xl">
+<div class="flex flex-col justify-center items-center min-h-[75%] text-xl" >
   <%= render 'partials/navbar' %>
   <%= render "partials/forms/url", url: @new_url %>
-  <div class="flex gap-4 justify-between items-center">
+  <div class="flex gap-4 justify-between items-center" data-controller="clipboard">
     <div class="flex-1 text-gray-400">
-      shortened link: <a href="http://127.0.0.1:3000/<%= @url.short %>" target="_blank" class="text-blue-500 font-medium hover:underline">paut.my/<%= @url.short %></a>
+      <span data-clipboard-target="notice">shortened link: </span>
+      <a href="http://127.0.0.1:3000/<%= @url.short %>" target="_blank" class="text-blue-500 font-medium hover:underline" data-clipboard-target="url">paut.my/<%= @url.short %></a>
     </div>
-    <svg class="w-5 text-gray-400 fill-current hover:text-blue-500 cursor-pointer" viewBox="0 0 24 24"><path d="M19 21H8V7h11m0-2H8a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h11a2 2 0 0 0 2-2V7a2 2 0 0 0-2-2m-3-4H4a2 2 0 0 0-2 2v14h2V3h12V1Z"/></svg>
+    <div data-action="click->clipboard#copy">
+      <svg class="w-5 text-gray-400 fill-current hover:text-blue-500 cursor-pointer" viewBox="0 0 24 24"><path d="M19 21H8V7h11m0-2H8a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h11a2 2 0 0 0 2-2V7a2 2 0 0 0-2-2m-3-4H4a2 2 0 0 0-2 2v14h2V3h12V1Z"  /></svg>
+    </div>
+
   </div>
 </div>
