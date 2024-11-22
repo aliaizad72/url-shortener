@@ -11,7 +11,7 @@ class UrlsController < ApplicationController
       @url = Url.new(target: target, title: title)
 
       if @url.save
-        redirect_to @url
+        redirect_to preview_url_path(@url)
       else
         flash[:alert] = "Shortening process failed"
         redirect_to root_path
@@ -24,6 +24,10 @@ class UrlsController < ApplicationController
   def redirect
     @url = Url.find_by(short: params[:short])
     redirect_to(@url.target, allow_other_host: true)
+  end
+
+  def preview
+    @url = Url.find(params[:id])
   end
 
   private

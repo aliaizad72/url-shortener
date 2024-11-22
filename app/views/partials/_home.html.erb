@@ -1,0 +1,7 @@
+<%= render 'partials/navbar' %>
+<% if flash[:alert] %>
+  <div><%= flash[:alert] %></div>
+<% end %>
+<div class="flex justify-center p-2">
+  <%= render "partials/forms/url", url: @url %>
+</div>

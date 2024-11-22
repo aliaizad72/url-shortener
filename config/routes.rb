@@ -1,6 +1,11 @@
 Rails.application.routes.draw do
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
-  resources :urls, only: [ :create, :show ]
+  resources :urls, only: [ :create, :show ] do
+    member do
+      get "preview"
+    end
+  end
+
   get "/:short" => "urls#redirect", as: :redirect_url, constraints: { short: /t[A-Za-z0-9]{0,5}/ }
 
   # Reveal health status on /up that returns 200 if the app boots with no exceptions, otherwise 500.
