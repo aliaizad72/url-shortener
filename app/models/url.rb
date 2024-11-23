@@ -1,6 +1,8 @@
 class Url < ApplicationRecord
   after_create :shortened
 
+  has_many :visits
+
   validates :target, presence: true
   validates :title, presence: true
 

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2024_11_19_081110) do
+ActiveRecord::Schema[8.0].define(version: 2024_11_22_175423) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
 
@@ -21,4 +21,16 @@ ActiveRecord::Schema[8.0].define(version: 2024_11_19_081110) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
+
+  create_table "visits", force: :cascade do |t|
+    t.string "request_time"
+    t.string "city"
+    t.string "country"
+    t.bigint "url_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["url_id"], name: "index_visits_on_url_id"
+  end
+
+  add_foreign_key "visits", "urls"
 end
