@@ -1,6 +1,7 @@
 class UrlsController < ApplicationController
   def show
     @url = Url.find(params[:id])
+    @visits = @url.visits
   end
   def create
     target = params[:url][:target]

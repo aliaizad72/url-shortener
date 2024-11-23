@@ -73,6 +73,6 @@ Rails.application.configure do
 
   # ngrok hosts
   Rails.application.configure do
-    config.hosts << "9167-2001-f40-950-d936-56d4-c342-e043-a4ba.ngrok-free.app"
+    config.hosts << "da88-2001-f40-950-d936-417c-48e5-b3a0-9e44.ngrok-free.app"
   end
 end

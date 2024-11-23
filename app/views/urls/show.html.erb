@@ -1,6 +1,21 @@
 <%= render 'partials/navbar' %>
-<div class="mx-4 md:mx-auto my-2 6 py-2 px-4 border-2 border-blue-500 md:w-[768px]">
+<div class="m-4 md:mx-auto  py-2 px-4 border-2 border-blue-500 md:w-[768px]">
   <h5 class="font-medium"><%= @url.title %></h5>
   <div>short link: <a href="http://127.0.0.1:3000/<%= @url.short %>" target="_blank" class="hover:text-blue-500 hover:underline">paut.my/<%= @url.short %></a></div>
   <div class="">your link: <a href="<%= @url.target %>" target="_blank" class="text-ellipsis hover:text-blue-500 hover:underline"><%= @url.target %></a></div>
+  <div>
+    number of clicks: <%= @visits.length %>
+  </div>
+</div>
+<div class="grid grid-cols-11 grid-rows-<%= @visits.length + 1 %> md:w-[768px] md:mx-auto divide-y divide-x border-2 border-blue-500">
+  <div class="p-2 font-bold">#</div>
+  <div class="p-2 font-bold col-span-3">city</div>
+  <div class="p-2 font-bold col-span-3">country</div>
+  <div class="p-2 font-bold col-span-4">datetime</div>
+  <% @visits.each_with_index do |visit, index| %>
+    <div class="p-2"><%= index + 1 %></div>
+    <div class="p-2 col-span-3"><%= visit.city %></div>
+    <div class="p-2 col-span-3"><%= visit.country %></div>
+    <div class="p-2 col-span-4"><%= local_time(Time.new(visit.request_time), "%d %B %Y %H:%M") %></div>
+  <% end %>
 </div>
