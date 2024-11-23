@@ -23,16 +23,8 @@ class UrlsController < ApplicationController
   end
   def redirect
     request_time = Time.new
-
     ip = request.remote_ip
-    begin
-      location = get_location(ip)
-    rescue Exception => e
-      location = {
-        city: "Not available",
-        country: "Not available",
-      }
-    end
+    location = get_location(ip)
 
     @url = Url.find_by(short: params[:short])
     @url.visits.create(request_time: request_time, city: location[:city], country: location[:country])
@@ -64,10 +56,31 @@ class UrlsController < ApplicationController
 
   def get_location(ip)
     geo_url = "https://api-bdc.net/data/ip-geolocation?ip=#{ip}&localityLanguage=en&key=#{Rails.application.credentials.bdc_api_key}"
-    response =  JSON.parse(fetch(geo_url).body)
-    {
-      city: response["location"]["city"],
-      country: response["country"]["name"],
-    }
+
+    begin
+      response =  JSON.parse(fetch(geo_url).body)
+    rescue Exception => e
+      puts e
+      return {
+        city: "NA",
+        country: "NA"
+      }
+    end
+
+    location = {}
+
+    if response["location"].nil?
+      location[:city] = "NA"
+    else
+      location[:city] = response["location"]["city"]
+    end
+
+    if response["country"].nil?
+      location[:country] = "NA"
+    else
+      location[:country] = response["country"]["name"]
+    end
+
+    location
   end
 end

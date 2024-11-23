@@ -7,3 +7,17 @@
 #   ["Action", "Comedy", "Drama", "Horror"].each do |genre_name|
 #     MovieGenre.find_or_create_by!(name: genre_name)
 #   end
+
+Url.create!([{target: "https://github.com/aliaizad72", title: "aliaizad72"}])
+
+url = Url.first
+fake_ips = %w[103.229.232.255 103.21.155.255 101.32.175.255 103.103.139.255 203.0.113.21]
+fake_visits = fake_ips.map do |ip|
+  {
+    request_time: Time.new
+  }.merge(UrlsController.new.send(:get_location, ip))
+end
+
+url.visits.create(fake_visits)
+
+
