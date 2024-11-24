@@ -1,33 +1,40 @@
 <div class="flex justify-center p-4">
-  <div class="flex justify-between items-center md:w-[768px]">
-    <h1 class="text-4xl font-bold"><%= link_to "snippit", home_path %></h1>
+  <div class="flex justify-between items-center w-full md:w-[768px]">
+    <h1 class="text-4xl font-bold text-vanilla hover:underline"><%= link_to "snippit", home_path %></h1>
     <div class="flex gap-2">
-      <%= link_to "shortener", home_path, class: "text-gray-400 hover:text-blue-500 hover:underline" %>
-      <%= link_to "search", search_path, class: "text-gray-400 hover:text-blue-500 hover:underline" %>
+      <%= link_to "shortener", home_path, class: "text-cream hover:text-vanilla hover:underline" %>
+      <%= link_to "search", search_path, class: "text-cream hover:text-vanilla hover:underline" %>
     </div>
   </div>
 </div>
 
 
+<div class="m-4 md:mx-auto py-2 px-4 md:w-[768px] rounded-md shadow-md shadow-vanilla text-cream">
+  <h5 class="truncate font-medium text-vanilla"><%= @url.title %></h5>
+  <div>short link: <a href="http://127.0.0.1:3000/<%= @url.short %>" target="_blank" class="font-medium text-vanilla hover:underline">snippit.my/<%= @url.short %></a></div>
+  <div class="truncate">original link: <a href="<%= @url.target %>" target="_blank" class="font-medium text-vanilla hover:underline"><%= @url.target %></a></div>
+</div>
 
-<div class="m-4 md:mx-auto py-2 px-4 border-2 border-blue-500 md:w-[768px]">
-  <h5 class="truncate font-medium"><%= @url.title %></h5>
-  <div>short link: <a href="http://127.0.0.1:3000/<%= @url.short %>" target="_blank" class="hover:text-blue-500 hover:underline">snippit.my/<%= @url.short %></a></div>
-  <div class="truncate">your link: <a href="<%= @url.target %>" target="_blank" class="text-ellipsis hover:text-blue-500 hover:underline"><%= @url.target %></a></div>
-  <div>
-    number of clicks: <%= @visits.length %>
+<h1 class="text-3xl font-medium m-4 md:w-[768px] md:mx-auto text-vanilla"><%= @visits.length %> visits</h1>
+
+<% unless @visits.empty? %>
+  <div class="grid grid-rows-<%= @visits.length - 1 %> text-sm md:w-[768px]  md:mx-auto rounded-md shadow-lg shadow-vanilla">
+    <div class="grid grid-cols-12 text-sm md:w-[768px] md:mx-auto rounded-md">
+      <div class="p-2 py-3 font-bold rounded-md text-vanilla">#</div>
+      <div class="p-2 py-3 font-bold col-span-2 rounded-md text-vanilla">city</div>
+      <div class="p-2 py-3 font-bold col-span-3 rounded-md text-vanilla">country</div>
+      <div class="p-2 py-3 font-bold col-span-4 rounded-md text-vanilla">date</div>
+      <div class="p-2 py-3 font-bold col-span-2 rounded-md text-vanilla">time</div>
+    </div>
+    <% @visits.each_with_index do |visit, index| %>
+      <div class="grid grid-cols-12 text-sm md:w-[768px] md:mx-auto rounded text-cream">
+        <div class="p-2 py-3 "><%= index + 1 %></div>
+        <div class="p-2 py-3 col-span-2"><%= visit.city %></div>
+        <div class="p-2 py-3 col-span-3"><%= visit.country %></div>
+        <div class="p-2 py-3 col-span-4"><%= local_time(Time.new(visit.request_time), "%d %B %Y") %></div>
+        <div class="p-2 py-3 col-span-2"><%= local_time(Time.new(visit.request_time), "%H:%M") %></div>
+      </div>
+    <% end %>
   </div>
-</div>
+<% end %>
 
-<div class="grid grid-cols-11 grid-rows-<%= @visits.length + 1 %> md:w-[768px] md:mx-auto divide-y divide-x border-2 border-blue-500">
-  <div class="p-2 font-bold">#</div>
-  <div class="p-2 font-bold col-span-3">city</div>
-  <div class="p-2 font-bold col-span-3">country</div>
-  <div class="p-2 font-bold col-span-4">datetime</div>
-  <% @visits.each_with_index do |visit, index| %>
-    <div class="p-2"><%= index + 1 %></div>
-    <div class="p-2 col-span-3"><%= visit.city %></div>
-    <div class="p-2 col-span-3"><%= visit.country %></div>
-    <div class="p-2 col-span-4"><%= local_time(Time.new(visit.request_time), "%d %B %Y %H:%M") %></div>
-  <% end %>
-</div>

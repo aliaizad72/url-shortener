@@ -13,7 +13,12 @@ module.exports = {
         sans: ['Inter var', ...defaultTheme.fontFamily.sans],
       },
       colors: {
-        bratgreen: "#8ACE00"
+        darkslategrey: "#335C67",
+        vanilla: "#FFF3B0",
+        hunyadi: "#E09F3E",
+        auburn: "#9E2A2B",
+        cosmos: "#540B0E",
+        cream: "#fefae0"
       }
     },
   },
