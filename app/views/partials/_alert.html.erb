@@ -1,5 +1,5 @@
 <% if flash[:alert] %>
   <div class="bg-red-50 w-full py-2 px-3 md:w-[722px] text-sm text-red-900">
-    Shortening process failed! Error: <%= flash[:alert] %>
+    <%= message %>Error: <%= flash[:alert] %>
   </div>
 <% end %>
