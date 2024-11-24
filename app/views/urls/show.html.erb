@@ -1,12 +1,24 @@
-<%= render 'partials/navbar' %>
-<div class="m-4 md:mx-auto  py-2 px-4 border-2 border-blue-500 md:w-[768px]">
-  <h5 class="font-medium"><%= @url.title %></h5>
-  <div>short link: <a href="http://127.0.0.1:3000/<%= @url.short %>" target="_blank" class="hover:text-blue-500 hover:underline">paut.my/<%= @url.short %></a></div>
-  <div class="">your link: <a href="<%= @url.target %>" target="_blank" class="text-ellipsis hover:text-blue-500 hover:underline"><%= @url.target %></a></div>
+<div class="flex justify-center p-4">
+  <div class="flex justify-between items-center md:w-[768px]">
+    <h1 class="text-4xl font-bold"><%= link_to "snippit", home_path %></h1>
+    <div class="flex gap-2">
+      <%= link_to "shortener", home_path, class: "text-gray-400 hover:text-blue-500 hover:underline" %>
+      <%= link_to "search", search_path, class: "text-gray-400 hover:text-blue-500 hover:underline" %>
+    </div>
+  </div>
+</div>
+
+
+
+<div class="m-4 md:mx-auto py-2 px-4 border-2 border-blue-500 md:w-[768px]">
+  <h5 class="truncate font-medium"><%= @url.title %></h5>
+  <div>short link: <a href="http://127.0.0.1:3000/<%= @url.short %>" target="_blank" class="hover:text-blue-500 hover:underline">snippit.my/<%= @url.short %></a></div>
+  <div class="truncate">your link: <a href="<%= @url.target %>" target="_blank" class="text-ellipsis hover:text-blue-500 hover:underline"><%= @url.target %></a></div>
   <div>
     number of clicks: <%= @visits.length %>
   </div>
 </div>
+
 <div class="grid grid-cols-11 grid-rows-<%= @visits.length + 1 %> md:w-[768px] md:mx-auto divide-y divide-x border-2 border-blue-500">
   <div class="p-2 font-bold">#</div>
   <div class="p-2 font-bold col-span-3">city</div>
