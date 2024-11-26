@@ -8,9 +8,11 @@
 #     MovieGenre.find_or_create_by!(name: genre_name)
 #   end
 
-Url.create!([{target: "https://github.com/aliaizad72", title: "aliaizad72"}])
+user = User.create(email: "test@dev.com", password: "12345678")
+user.urls.create([{target: "https://github.com/aliaizad72", title: "aliaizad72"}])
 
-url = Url.first
+url = user.urls.first
+
 fake_ips = %w[103.229.232.255 103.21.155.255 101.32.175.255 103.103.139.255 203.0.113.21]
 fake_visits = fake_ips.map do |ip|
   {

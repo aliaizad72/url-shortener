@@ -1,6 +1,7 @@
 class Url < ApplicationRecord
   after_create :shortened
 
+  belongs_to :user
   has_many :visits
 
   validates :target, presence: true
