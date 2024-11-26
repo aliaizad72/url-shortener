@@ -8,6 +8,6 @@ class UsersController < ApplicationController
       redirect_back_or_to root_path
     end
 
-    @urls = @user.urls
+    @urls = @user.urls.includes(:visits)
   end
 end

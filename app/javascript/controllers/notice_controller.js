@@ -4,16 +4,14 @@ import { Controller } from "@hotwired/stimulus"
 export default class extends Controller {
   static targets = ["reason"]
   connect() {
-    console.log("connnect")
   }
 
   reveal() {
     this.reasonTarget.classList.remove("text-darkslategrey")
     this.reasonTarget.classList.add("text-vanilla")
-  }
-
-  hide() {
-    this.reasonTarget.classList.remove("text-vanilla")
-    this.reasonTarget.classList.add("text-darkslategrey")
+    setTimeout(() => {
+      this.reasonTarget.classList.remove("text-vanilla")
+      this.reasonTarget.classList.add("text-darkslategrey")
+    }, 5000)
   }
 }

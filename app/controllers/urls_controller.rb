@@ -24,7 +24,7 @@ class UrlsController < ApplicationController
       end
     rescue Exception => e
       flash[:alert] = "#{e}"
-      redirect_to root_path
+      redirect_back_or_to root_path
     end
   end
   def redirect

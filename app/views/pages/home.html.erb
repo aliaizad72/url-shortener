@@ -1,14 +1,17 @@
 <div class="flex flex-col justify-center items-center min-h-[95%] text-xl gap-2" data-controller="notice">
   <%= render 'partials/navbar' %>
-  <%= render 'partials/alert' %>
   <%= render "partials/forms/url", url: @url %>
+  <%= render 'partials/alert' %>
   <div class="flex gap-5">
+    <% if current_user %>
+      <%= link_to "your links", user_path(current_user), class: "text-cream cursor-pointer hover:underline hover:text-vanilla font-medium" %>
+    <% end %>
     <%= link_to "analytics", search_path, class: "text-cream cursor-pointer hover:underline hover:text-vanilla font-medium" %>
     <% if current_user %>
-      <%= button_to "sign out", destroy_user_session_path, method: :delete, class: "text-cream cursor-pointer hover:underline hover:text-vanilla font-medium" %>
+      <%= button_to "log out", destroy_user_session_path, method: :delete, class: "text-cream cursor-pointer hover:underline hover:text-vanilla font-medium" %>
     <% else %>
-      <%= link_to "log in", new_user_session_path, class: "text-cream cursor-pointer hover:underline hover:text-vanilla font-medium", data: { action: %(mouseover->notice#reveal mouseout->notice#hide) } %>
-      <%= link_to "sign up", new_user_registration_path, class: "text-cream cursor-pointer hover:underline hover:text-vanilla font-medium", data: { action: %(mouseover->notice#reveal mouseout->notice#hide) } %>
+      <%= link_to "log in", new_user_session_path, class: "text-cream cursor-pointer hover:underline hover:text-vanilla font-medium", data: { action: "mouseover->notice#reveal" } %>
+      <%= link_to "sign up", new_user_registration_path, class: "text-cream cursor-pointer hover:underline hover:text-vanilla font-medium", data: { action: "mouseover->notice#reveal" } %>
     <% end %>
   </div>
 
