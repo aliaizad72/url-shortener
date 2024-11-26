@@ -1,11 +1,24 @@
 <div class="flex flex-col justify-center items-center min-h-[95%] text-xl gap-2" data-controller="notice">
   <%= render 'partials/navbar' %>
   <%= render 'partials/alert', message: "Shortening process failed! " %>
+
+  <% if alert %>
+    <div class="bg-hunyadi w-[92%] py-2 px-3 md:w-[722px] rounded-lg text-sm text-auburn font-bold alert">
+      <%= alert %>
+    </div>
+  <% end %>
+
+  <% if notice %>
+    <div class="bg-cream w-[92%] py-2 px-3 md:w-[722px] rounded-lg text-sm text-darkslategrey font-bold notice">
+      <%= notice %>
+    </div>
+  <% end %>
+
   <%= render "partials/forms/url", url: @url %>
   <div class="flex gap-5">
     <%= link_to "analytics", search_path, class: "text-cream cursor-pointer hover:underline hover:text-vanilla font-medium" %>
     <% if current_user %>
-
+      <%= button_to "sign out", destroy_user_session_path, method: :delete, class: "text-cream cursor-pointer hover:underline hover:text-vanilla font-medium" %>
     <% else %>
       <%= link_to "log in", new_user_session_path, class: "text-cream cursor-pointer hover:underline hover:text-vanilla font-medium", data: { action: %(mouseover->notice#reveal mouseout->notice#hide) } %>
       <%= link_to "sign up", new_user_registration_path, class: "text-cream cursor-pointer hover:underline hover:text-vanilla font-medium", data: { action: %(mouseover->notice#reveal mouseout->notice#hide) } %>

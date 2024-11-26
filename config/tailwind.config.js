@@ -18,7 +18,8 @@ module.exports = {
         hunyadi: "#E09F3E",
         auburn: "#9E2A2B",
         cosmos: "#540B0E",
-        cream: "#fefae0"
+        cream: "#fefae0",
+        persian: "#2a9d8f"
       }
     },
   },
