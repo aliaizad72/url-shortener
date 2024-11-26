@@ -9,6 +9,7 @@
   "private": true,
   "dependencies": {
     "@hotwired/stimulus": "^3.2.2",
+    "@tailwindcss/forms": "^0.5.9",
     "controllers": "^0.0.2",
     "local-time": "^3.0.2"
   }

@@ -2,5 +2,12 @@
   <%= render 'partials/navbar' %>
   <%= render 'partials/alert', message: "Shortening process failed! " %>
   <%= render "partials/forms/url", url: @url %>
-  <%= link_to "analytics", search_path, class: "text-cream cursor-pointer hover:underline hover:text-vanilla font-medium" %>
+  <div class="flex gap-5">
+    <% if current_user %>
+
+    <% else %>
+      <%= link_to "log in", new_user_session_path, class: "text-cream cursor-pointer hover:underline hover:text-vanilla font-medium" %>
+    <% end %>
+    <%= link_to "analytics", search_path, class: "text-cream cursor-pointer hover:underline hover:text-vanilla font-medium" %>
+  </div>
 </div>

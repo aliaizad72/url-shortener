@@ -1,0 +1,33 @@
+<div class="flex justify-center items-center min-h-[85%]">
+  <div class="flex flex-col justify-center items-center rounded-md">
+    <%= render 'partials/navbar' %>
+    <%= form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
+      <div class="field my-4">
+        <%= f.email_field :email, autofocus: true, autocomplete: "email", class: "rounded-lg border-transparent focus:border-transparent focus:ring-0", placeholder: "email"%>
+      </div>
+
+      <div class="field my-4">
+        <%= f.password_field :password, autocomplete: "current-password", class: "rounded-lg border-transparent focus:border-transparent focus:ring-0", placeholder: "password"%>
+      </div>
+
+
+
+      <div class="actions">
+        <%= f.submit "log in", class: "p-2 rounded-lg cursor-pointer font-medium text-base bg-darkslategrey text-vanilla border border-vanilla transition hover:bg-vanilla hover:text-darkslategrey w-full"%>
+      </div>
+
+      <% if devise_mapping.rememberable? %>
+        <div class="field flex items-center gap-2 my-3">
+          <%= f.check_box :remember_me, class: "rounded-md focus:ring-0 outline-none bg-darkslategrey border-cream" %>
+          <%= f.label :remember_me, "remember me", class: "text-sm text-cream" %>
+        </div>
+      <% end %>
+      <div class="flex flex-col gap-2">
+        <%= link_to "sign up", new_user_registration_path, class: "text-cream cursor-pointer hover:underline hover:text-vanilla font-medium" %>
+        <%= link_to "forgot your password?", new_user_password_path, class: "text-cream cursor-pointer hover:underline hover:text-vanilla font-medium" %>
+      </div>
+    <% end %>
+  </div>
+</div>
+
+
