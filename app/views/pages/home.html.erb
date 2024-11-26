@@ -1,13 +1,19 @@
-<div class="flex flex-col justify-center items-center min-h-[80%] text-xl gap-2">
+<div class="flex flex-col justify-center items-center min-h-[95%] text-xl gap-2" data-controller="notice">
   <%= render 'partials/navbar' %>
   <%= render 'partials/alert', message: "Shortening process failed! " %>
   <%= render "partials/forms/url", url: @url %>
   <div class="flex gap-5">
+    <%= link_to "analytics", search_path, class: "text-cream cursor-pointer hover:underline hover:text-vanilla font-medium" %>
     <% if current_user %>
 
     <% else %>
-      <%= link_to "log in", new_user_session_path, class: "text-cream cursor-pointer hover:underline hover:text-vanilla font-medium" %>
+      <%= link_to "log in", new_user_session_path, class: "text-cream cursor-pointer hover:underline hover:text-vanilla font-medium", data: { action: %(mouseover->notice#reveal mouseout->notice#hide) } %>
+      <%= link_to "sign up", new_user_registration_path, class: "text-cream cursor-pointer hover:underline hover:text-vanilla font-medium", data: { action: %(mouseover->notice#reveal mouseout->notice#hide) } %>
     <% end %>
-    <%= link_to "analytics", search_path, class: "text-cream cursor-pointer hover:underline hover:text-vanilla font-medium" %>
   </div>
+
+  <% unless current_user %>
+    <p class="text-darkslategrey font-medium my-5" data-notice-target="reason">sign up to track your links!</p>
+  <% end %>
 </div>
+
