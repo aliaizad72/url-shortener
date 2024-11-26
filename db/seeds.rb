@@ -9,6 +9,7 @@
 #   end
 
 user = User.create(email: "test@dev.com", password: "12345678")
+user2 = User.create(email: "ali@dev.com", password: "12345678")
 user.urls.create([{target: "https://github.com/aliaizad72", title: "aliaizad72"}])
 
 url = user.urls.first

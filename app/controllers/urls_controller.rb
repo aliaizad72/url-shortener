@@ -9,9 +9,14 @@ class UrlsController < ApplicationController
       response = fetch(target)
       title = Nokogiri::HTML(response.body).title
       title = "Title tag not available" if title.nil?
+
       @url = Url.new(target: target, title: title)
 
       if @url.save
+        if current_user
+          current_user.urls << @url
+        end
+
         redirect_to preview_url_path(@url)
       else
         flash[:alert] = "Shortening process failed"
