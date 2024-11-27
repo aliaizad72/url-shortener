@@ -2,7 +2,7 @@ class Url < ApplicationRecord
   after_create :shortened
 
   belongs_to :user, optional: true
-  has_many :visits
+  has_many :visits, dependent: :destroy
 
   validates :target, presence: true
   validates :title, presence: true

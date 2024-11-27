@@ -52,6 +52,18 @@ class UrlsController < ApplicationController
     @url = Url.find(params[:id])
   end
 
+  def destroy
+    @url = Url.find(params[:id])
+
+    # only tracked urls can be destroyed
+    if current_user.nil? || current_user.id != @url.user_id
+      redirect_back_or_to root_path
+    end
+
+    @url.destroy
+    redirect_to user_path(current_user)
+  end
+
   private
 
   def fetch(target, limit = 10)

@@ -15,20 +15,28 @@
 <% @urls.each do |url| %>
   <div class="m-2 md:mx-auto p-4 md:w-[768px] rounded-md text-cream  border border-cream shadow-md shadow-grey-200" data-controller="urlclipboard">
     <h5 class="truncate font-medium text-cream hover:underline" ><%= link_to "#{url.title}", url.target, target: "_blank" %></h5>
-    <div class="flex items-center gap-2" >
-      <a href="<%= redirect_url_path(url.short) %>" target="_blank" class="font-medium text-vanilla hover:underline" data-urlclipboard-target="link">snippit.my/<%= url.short %></a>
-      <div data-action="click->urlclipboard#copy">
-        <svg class="w-4 mb-[1.5px] text-cream fill-current hover:text-vanilla cursor-pointer" viewBox="0 0 24 24"><path d="M19 21H8V7h11m0-2H8a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h11a2 2 0 0 0 2-2V7a2 2 0 0 0-2-2m-3-4H4a2 2 0 0 0-2 2v14h2V3h12V1Z"/></svg>
+    <div class="flex justify-between">
+      <div class="flex items-center gap-2" >
+        <a href="<%= redirect_url_path(url.short) %>" target="_blank" class="font-medium text-vanilla hover:underline" data-urlclipboard-target="link">snippit.my/<%= url.short %></a>
+        <div data-action="click->urlclipboard#copy">
+          <svg class="w-4 mb-[1.5px] text-cream fill-current hover:text-vanilla cursor-pointer" viewBox="0 0 24 24"><title>copy link</title><path d="M19 21H8V7h11m0-2H8a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h11a2 2 0 0 0 2-2V7a2 2 0 0 0-2-2m-3-4H4a2 2 0 0 0-2 2v14h2V3h12V1Z"/></svg>
+        </div>
+        <%= link_to url_path(url), target: "_blank" do %>
+          <svg class="w-4 mb-[1.5px] text-cream fill-current hover:text-vanilla cursor-pointer" viewBox="0 0 24 24"><title>analytics</title><path d="M3,22V8H7V22H3M10,22V2H14V22H10M17,22V14H21V22H17Z" /></svg>
+        <% end %>
       </div>
-      <%= link_to url_path(url), target: "_blank" do %>
-        <svg class="w-4 mb-[1.5px] text-cream fill-current hover:text-vanilla cursor-pointer" viewBox="0 0 24 24"><path d="M3,22V8H7V22H3M10,22V2H14V22H10M17,22V14H21V22H17Z" /></svg>
-      <% end %>
+      <div>
+        <%= link_to url_path(url), data: { turbo_method: :delete, turbo_confirm: "Are you sure you want to delete this url?"} do %>
+          <svg class="w-4 mb-[1.5px] text-cream fill-current hover:text-vanilla cursor-pointer" viewBox="0 0 24 24"><title>delete url</title><path d="M9,3V4H4V6H5V19A2,2 0 0,0 7,21H17A2,2 0 0,0 19,19V6H20V4H15V3H9M7,6H17V19H7V6M9,8V17H11V8H9M13,8V17H15V8H13Z" /></svg>
+        <% end %>
+      </div>
     </div>
     <div class="hidden" data-urlclipboard-target="notify">
       link copied!
     </div>
   </div>
 <% end %>
+
 <% if @pagy.count > @pagy.limit %>
   <div class="flex flex-col items-center gap-4 fixed bottom-10 w-full">
     <%== pagy_info(@pagy, item_name: "urls".pluralize(@pagy.count)).downcase %>
