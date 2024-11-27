@@ -77,3 +77,5 @@ gem "recaptcha", "~> 5.17"
 gem "local_time", "~> 3.0"
 
 gem "devise", "~> 4.9"
+
+gem "pagy", "~> 9.3"

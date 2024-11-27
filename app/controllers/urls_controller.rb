@@ -1,7 +1,8 @@
 class UrlsController < ApplicationController
   def show
     @url = Url.find(params[:id])
-    @visits = @url.visits
+    @visits = @url.visits.reverse_order
+    @pagy, @visits = pagy(@visits, limit: 12)
   end
   def create
     target = params[:url][:target]
