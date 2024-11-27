@@ -10,7 +10,8 @@ class UrlsController < ApplicationController
       end
     end
 
-    @visits = @url.visits.reverse_order
+    @visits_count = @url.visits.count
+    @visits = @url.visits.limit(200)
     @pagy, @visits = pagy(@visits, limit: 12)
   end
   def create

@@ -23,7 +23,7 @@
   <div class="truncate">original link: <a href="<%= @url.target %>" target="_blank" class="font-medium text-vanilla hover:underline"><%= @url.target %></a></div>
 </div>
 
-<h1 class="text-3xl font-medium m-4 md:w-[768px] md:mx-auto text-vanilla"><%= pluralize(@pagy.count, "visit") %></h1>
+<h1 class="text-3xl font-medium m-4 md:w-[768px] md:mx-auto text-vanilla"><%= pluralize(@visits_count, "visit") %></h1>
 
 
 <% unless @visits.empty? %>
@@ -47,7 +47,7 @@
 
 <% if @pagy.count > @pagy.limit %>
   <div class="flex flex-col items-center gap-4 fixed bottom-10 w-full">
-    <%== pagy_info(@pagy, item_name: "visit".pluralize(@pagy.count)).downcase %>
+    <%== pagy_info(@pagy, item_name: "visit".pluralize(@pagy.count)).downcase.sub("in total", "most recent visits") %>
     <%== pagy_nav(@pagy) %>
   </div>
 <% end %>

@@ -8,7 +8,7 @@ class UsersController < ApplicationController
       redirect_back_or_to root_path
     end
 
-    @urls = @user.urls.reverse_order
+    @urls = @user.urls
     @pagy, @urls = pagy(@urls, limit: 8)
   end
 end
