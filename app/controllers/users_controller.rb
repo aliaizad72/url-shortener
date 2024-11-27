@@ -4,10 +4,11 @@ class UsersController < ApplicationController
     @user = User.find(params[:id])
 
     if @user != current_user
-      flash[:alert] = "You only can view your own links"
+      flash[:alert] = "Unauthorized access! Log in to view your links"
       redirect_back_or_to root_path
     end
 
     @urls = @user.urls.includes(:visits)
+    @pagy, @urls = pagy(@urls, limit: 8)
   end
 end
