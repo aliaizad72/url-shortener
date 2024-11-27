@@ -23,7 +23,7 @@ class UrlsController < ApplicationController
 
       @url = Url.new(target: target, title: title)
 
-      if @url.save
+      if verify_recaptcha(model: @url) && @url.save
         if current_user
           current_user.urls << @url
         end
