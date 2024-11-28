@@ -14,30 +14,37 @@ snippit.my is a web application that takes in a target URL and transforms it int
 
 ## How the Features Are Implemented
 
- **Fetching the Title from the Target URL**
+### Scraping the Title from the Target URL
+
  [`net-http`](https://rubygems.org/gems/net-http/versions/0.4.1?locale=en) gem is used to send an HTTP request to the target URL, and the HTML response is parsed by the [`nokogiri`](https://rubygems.org/gems/nokogiri) gem to grab the title of the URL.
  
-  **Securing the Create Short URL Form from Spam**
+### Securing the Create Short URL Form from Spam
+
   [Google reCaptcha v2](https://www.google.com/recaptcha/about/) is scaffolded using the [`recaptcha`](https://github.com/ambethia/recaptcha) gem to protect the form from spam. 
-  
-  **Producing the Short URL**
+
+### Producing the Short URL
+
  After the target URL is saved in the database, the `Url` model takes the id of that instance and convert it to a base62 number. For example, a URL instance of id: `123123` will return  `W1r`. It would take more than 56 billion urls before the key would exceed 6 characters (last key: `zzzzzz`). 
 
 This `Url` instance is then updated with this key and return to the user the short URL of snippit.my/tWir. The letter "t" is appended as a marker in routes to point it at the `redirect` action that would occur if someone makes a request at the short URL.
 
- **Redirecting the Short URL**
+### Redirecting the Short URL
+
 When a client requests with parameters key, e.g. snippit.my/t[key], the routes will point to a `redirect` action in the controller. A `Url` instance is queried from the database based on the key and a `Visit` instance will be created as part of that process. Lastly, the client is redirected to the target URL that was created earlier.
 
- **URL Analytics**
+### URL Analytics
+
 As mentioned before, a `Visit` instance is created every time a client requests a `redirect` via the short link. The `Visit` model's attributes consist of IP address, city, country and time of request.
 
 In the `redirect` controller action, the IP address of the client is acquired with `request.remote_ip`. The geolocation data of the controller is obtained externally via [BigDataCloud Geolocation API](https://www.bigdatacloud.com/ip-geolocation/ip-address-geolocation-api) with the [`net-http`](https://rubygems.org/gems/net-http) gem and the respective IP addresses of clients. On successful query, the city and country attributes are extracted from the response. In the case where IP address are valid, but response does not contain city and country, the city and country attributes will be assigned "NA". Time of request is the time when the `redirect` controller action begins.
 
-**Downloadable Compressed CSV URL Analytics Report**
+### Downloadable Compressed CSV URL Analytics Report
+
 When a user clicks the download link, the `download` controller action begins by finding the collection of `Visits` associated with the URL. This collection is then transformed into a CSV string using the [`csv`](https://rubygems.org/gems/csv) gem. The [`rubyzip`](https://rubygems.org/gems/rubyzip) gem, more specifically the  `Zip::OutputStream.write_buffer` method , is used to open a data stream and write the CSV string into a compressed filestream. Once the CSV is written into the filestream, the filestream is rewound so it can be read. Finally, the filestream is sent to the client as a downloadable file using Rails' `send_data`.
    
-**Tracking User Created Short URLs**
-`Devise` gem is used to scaffold authentication and authorization. Registered `Users` can track and untrack their `Url` instances. The analytics page and CSV file is only available to the `User` that created the `Url` instance, others are prohibited to access those pages and files.
+### Tracking User Created Short URLs
+
+`devise` gem is used to scaffold authentication and authorization. Registered `Users` can track and untrack their `Url` instances. The analytics page and CSV file is only available to the `User` that created the `Url` instance, others are prohibited to access those pages and files.
 
 ## Local Development
 
@@ -50,6 +57,7 @@ When a user clicks the download link, the `download` controller action begins by
 * [`nokogiri`](https://rubygems.org/gems/nokogiri) gem
 * [`recaptcha`](https://github.com/ambethia/recaptcha) gem
 * [`rubyzip`](https://rubygems.org/gems/rubyzip) gem
+* [`devise`](https://rubygems.org/gems/devise) gem
 * [`pagy`](https://rubygems.org/gems/pagy) gem - for index pagination
 
 ### Installing
