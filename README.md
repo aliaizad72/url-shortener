@@ -2,9 +2,11 @@
 
 A web application that takes your very very long link and shorten it. 
 
+Deployment link: https://www.snippit.my
+
 ## Main Feature
 
-snippit.my is a web application that takes in a target URL and transforms it into a shorter URL for your own use (common use case is in marketing). The application takes in your target URL and stores it in a database. A unique key is produced and assigned to the target URL in the process of storing the target URL to the database. Whenever a request is made to snippit.my with a parameter *key* such as snippit.my/tA1, the user is simply rerouted to the target URL paired with the key, in this case key: A1.
+[snippit.my](https://www.snippit.my) is a web application that takes in a target URL and transforms it into a shorter URL for your own use (common use case is in marketing). The application takes in your target URL and stores it in a database. A unique key is produced and assigned to the target URL in the process of storing the target URL to the database. Whenever a request is made to [snippit.my](https://www.snippit.my) with a parameter *key* such as [snippit.my/tA1](), the user is simply rerouted to the target URL paired with the key, in this case *key: 1*.
  
 ## Other Features
 
@@ -24,13 +26,13 @@ snippit.my is a web application that takes in a target URL and transforms it int
 
 ### Producing the Short URL
 
- After the target URL is saved in the database, the `Url` model takes the id of that instance and convert it to a base62 number. For example, a URL instance of id: `123123` will return  `W1r`. It would take more than 56 billion urls before the key would exceed 6 characters (last key: `zzzzzz`). 
+ After the target URL is saved in the database, the `Url` model takes the id of that instance and convert it to a base62 number. For example, a `Url` instance of id: `123123` will return  `W1r`. It would take more than 56 billion urls before the key would exceed 6 characters (last key: `zzzzzz`). 
 
-This `Url` instance is then updated with this key and return to the user the short URL of snippit.my/tWir. The letter "t" is appended as a marker in routes to point it at the `redirect` action that would occur if someone makes a request at the short URL.
+This `Url` instance is then updated with this key and return to the user the short URL of [snippit.my/tWir](). The letter "t" is appended as a marker in routes to point it at the `redirect` action that would occur if someone makes a request at the short URL.
 
 ### Redirecting the Short URL
 
-When a client requests with parameters key, e.g. snippit.my/t[key], the routes will point to a `redirect` action in the controller. A `Url` instance is queried from the database based on the key and a `Visit` instance will be created as part of that process. Lastly, the client is redirected to the target URL that was created earlier.
+When a client requests with parameters key, e.g. [snippit.my/t**2**](https://snippit.my/t2), the routes will point to a `redirect` action in the controller. A `Url` instance is queried from the database based on the key (2) and a `Visit` instance will be created as part of that process. Lastly, the client is redirected to the target URL that was created earlier.
 
 ### URL Analytics
 
@@ -89,3 +91,10 @@ rspec
 ```
 
 Integration tests are still in the process of being written with  [`rspec-rails`](https://rubygems.org/gems/rspec-rails) gem and  [`capybara`](https://rubygems.org/gems/capybara) gem.
+
+## Deployment
+
+[snippit.my](https://snippit.my) is deployed on [fly.io](https://fly.io/). 
+
+IMPORTANT: your host may present multiple IP addresses to your app, and when requesting geolocation of your client you may query using your hosts IP addresses instead. To solve this, add IP addresses used by your host to ` config.action_dispatch.trusted_proxies` in `production.rb`. This will avoid the `request.remote_ip` in `urls#redirect` to consider your hosts' IP addresses as "remote".
+
