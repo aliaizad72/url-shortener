@@ -3,6 +3,7 @@
     <h1 class="text-4xl font-bold text-vanilla hover:underline"><%= link_to "snippit", home_path %></h1>
     <div class="flex gap-4">
       <%= link_to "shortener", home_path, class: "text-cream cursor-pointer hover:underline hover:text-vanilla font-medium" %>
+      <%= link_to "search", visits_search_path, class: "text-cream cursor-pointer hover:underline hover:text-vanilla font-medium" %>
       <% if current_user %>
         <%= button_to "log out", destroy_user_session_path, method: :delete, class: "text-cream cursor-pointer hover:underline hover:text-vanilla font-medium" %>
       <% end %>

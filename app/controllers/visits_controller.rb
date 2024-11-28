@@ -15,4 +15,6 @@ class VisitsController < ApplicationController
     @pagy, @visits = pagy(@visits, limit: 12)
   end
 
+  def search
+  end
 end
