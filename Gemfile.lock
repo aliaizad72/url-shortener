@@ -390,6 +390,8 @@ GEM
     xpath (3.2.0)
       nokogiri (~> 1.8)
     zeitwerk (2.7.1)
+    zip-zip (0.3)
+      rubyzip (>= 1.0.0)
 
 PLATFORMS
   aarch64-linux
@@ -421,6 +423,7 @@ DEPENDENCIES
   recaptcha (~> 5.17)
   rspec-rails
   rubocop-rails-omakase
+  rubyzip (~> 2.3)
   selenium-webdriver (~> 4.26)
   solid_cable
   solid_cache
@@ -431,6 +434,7 @@ DEPENDENCIES
   turbo-rails
   tzinfo-data
   web-console
+  zip-zip (~> 0.3)
 
 BUNDLED WITH
    2.5.23

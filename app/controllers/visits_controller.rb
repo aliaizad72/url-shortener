@@ -30,10 +30,15 @@ class VisitsController < ApplicationController
     @visits = @url.visits
 
     begin
-      send_data to_csv(@visits), filename: "#{@url.short}-#{DateTime.now.strftime("%d%m%Y%H%M")}.csv", content_type: "text/csv"
-      redirect_to url_visits_path(@url)
+      compressed_filestream = Zip::OutputStream.write_buffer(::StringIO.new("")) do |zip|
+        zip.put_next_entry "#{@url.short}-#{DateTime.now.strftime("%d%m%Y%H%M")}.csv"
+        zip.print to_csv(@visits)
+      end
+      compressed_filestream.rewind
+      send_data compressed_filestream.read, filename: "#{@url.short}-#{DateTime.now.strftime("%d%m%Y%H%M")}.zip"
     rescue Exception => e
       flash[:alert] = "#{e}"
+      redirect_to url_visits_path(@url)
     end
   end
 

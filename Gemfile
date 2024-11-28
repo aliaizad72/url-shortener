@@ -81,3 +81,6 @@ gem "local_time", "~> 3.0"
 gem "devise", "~> 4.9"
 
 gem "pagy", "~> 9.3"
+
+gem "rubyzip", "~> 2.3"
+gem "zip-zip", "~> 0.3"
