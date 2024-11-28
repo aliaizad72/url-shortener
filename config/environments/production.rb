@@ -58,8 +58,6 @@ Rails.application.configure do
   # Set this to true and configure the email server for immediate delivery to raise delivery errors.
   # config.action_mailer.raise_delivery_errors = false
 
-  # Set host to be used by links generated in mailer templates.
-  config.action_mailer.default_url_options = { host: "example.com" }
 
   # Specify outgoing SMTP server. Remember to add smtp/* credentials via rails credentials:edit.
   # config.action_mailer.smtp_settings = {
@@ -69,6 +67,21 @@ Rails.application.configure do
   #   port: 587,
   #   authentication: :plain
   # }
+  #
+  # action mailer devise
+  config.action_mailer.default_url_options = { host: "localhost", port: 3000 }
+  config.action_mailer.delivery_method = :smtp
+  config.action_mailer.smtp_settings = {
+    address:         "smtp.gmail.com",
+    port:            587,
+    domain:          "localhost",
+    user_name:       "aliaizad72@gmail.com",
+    password:        Rails.application.credentials.dig(:gmail_smtp, :password),
+    authentication:  "plain",
+    enable_starttls: true,
+    open_timeout:    5,
+    read_timeout:    5
+  }
 
   # Enable locale fallbacks for I18n (makes lookups for any locale fall back to
   # the I18n.default_locale when a translation cannot be found).
@@ -81,11 +94,16 @@ Rails.application.configure do
   config.active_record.attributes_for_inspect = [ :id ]
 
   # Enable DNS rebinding protection and other `Host` header attacks.
-  # config.hosts = [
-  #   "example.com",     # Allow requests from example.com
-  #   /.*\.example\.com/ # Allow requests from subdomains like `www.example.com`
-  # ]
+  config.hosts = [
+    "2a09:8280:1::52:bfc9:0",
+    "66.241.124.102",
+    "snippit.my",     # Allow requests from example.com
+    /.*\.snippit\.my/ # Allow requests from subdomains like `www.example.com`
+  ]
   #
   # Skip DNS rebinding protection for the default health check endpoint.
   # config.host_authorization = { exclude: ->(request) { request.path == "/up" } }
+
+  # configure trusted proxies
+  config.action_dispatch.trusted_proxies = %w[66.241.124.102 2a09:8280:1::52:bfc9:0].map { |proxy| IPAddr.new(proxy) } + ActionDispatch::RemoteIp::TRUSTED_PROXIES
 end

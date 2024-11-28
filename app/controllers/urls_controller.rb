@@ -73,6 +73,7 @@ class UrlsController < ApplicationController
 
   def get_location(ip)
     geo_url = "https://api-bdc.net/data/ip-geolocation?ip=#{ip}&localityLanguage=en&key=#{Rails.application.credentials.bdc_api_key}"
+    p geo_url
 
     begin
       response =  JSON.parse(fetch(geo_url).body)

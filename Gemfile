@@ -84,3 +84,5 @@ gem "pagy", "~> 9.3"
 
 gem "rubyzip", "~> 2.3"
 gem "zip-zip", "~> 0.3"
+
+gem "dockerfile-rails", ">= 1.6", :group => :development
