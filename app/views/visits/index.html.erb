@@ -1,11 +1,11 @@
 <div class="flex justify-center p-4">
   <div class="flex justify-between items-center w-full md:w-[768px]">
-    <h1 class="text-4xl font-bold text-vanilla hover:underline"><%= link_to "snippit", home_path %></h1>
+    <h1 class="text-4xl font-bold text-vanilla hover:underline"><%= link_to "snippit", root_path %></h1>
     <div class="flex gap-4">
       <% if current_user %>
         <%= link_to "your links", user_path(current_user), class: "text-cream cursor-pointer hover:underline hover:text-vanilla font-medium" %>
       <% end %>
-      <%= link_to "shortener", home_path, class: "text-cream cursor-pointer hover:underline hover:text-vanilla font-medium" %>
+      <%= link_to "shortener", root_path, class: "text-cream cursor-pointer hover:underline hover:text-vanilla font-medium" %>
       <%= link_to "search", visits_search_path, class: "text-cream cursor-pointer hover:underline hover:text-vanilla font-medium" %>
       <% if current_user %>
         <%= button_to "log out", destroy_user_session_path, method: :delete, class: "text-cream cursor-pointer hover:underline hover:text-vanilla font-medium" %>

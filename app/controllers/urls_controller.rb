@@ -1,4 +1,7 @@
 class UrlsController < ApplicationController
+  def new
+    @url = Url.new
+  end
   def create
     target = params[:url][:target]
     begin
@@ -23,6 +26,11 @@ class UrlsController < ApplicationController
       redirect_back_or_to root_path
     end
   end
+
+  def preview
+    @new_url = Url.new
+    @url = Url.find(params[:id])
+  end
   def redirect
     request_time = Time.new
     ip = request.remote_ip
@@ -31,11 +39,6 @@ class UrlsController < ApplicationController
     @url = Url.find_by(short: params[:short])
     @url.visits.create(ip: ip, request_time: request_time, city: location[:city], country: location[:country])
     redirect_to(@url.target, allow_other_host: true)
-  end
-
-  def preview
-    @new_url = Url.new
-    @url = Url.find(params[:id])
   end
 
   def destroy
