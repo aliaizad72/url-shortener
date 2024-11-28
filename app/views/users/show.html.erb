@@ -21,7 +21,7 @@
         <div data-action="click->urlclipboard#copy">
           <svg class="w-4 mb-[1.5px] text-cream fill-current hover:text-vanilla cursor-pointer" viewBox="0 0 24 24"><title>copy link</title><path d="M19 21H8V7h11m0-2H8a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h11a2 2 0 0 0 2-2V7a2 2 0 0 0-2-2m-3-4H4a2 2 0 0 0-2 2v14h2V3h12V1Z"/></svg>
         </div>
-        <%= link_to url_path(url), target: "_blank" do %>
+        <%= link_to url_visits_path(url), target: "_blank" do %>
           <svg class="w-4 mb-[1.5px] text-cream fill-current hover:text-vanilla cursor-pointer" viewBox="0 0 24 24"><title>analytics</title><path d="M3,22V8H7V22H3M10,22V2H14V22H10M17,22V14H21V22H17Z" /></svg>
         <% end %>
       </div>

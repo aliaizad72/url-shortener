@@ -10,7 +10,7 @@ class PagesController < ApplicationController
       flash[:alert] = "No such links found"
       redirect_to search_path
     else
-      redirect_to url_path(@url)
+      redirect_to url_visits_path(@url)
     end
   end
 
