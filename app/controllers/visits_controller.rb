@@ -1,4 +1,5 @@
 class VisitsController < ApplicationController
+  require "csv"
   def index
     @url = Url.find(params[:url_id])
 
@@ -15,6 +16,27 @@ class VisitsController < ApplicationController
     @pagy, @visits = pagy(@visits, limit: 12)
   end
 
+  def download
+    @url = Url.find(params[:url_id])
+
+    # if url was created with a user, the report only available to the user
+    if @url.user_id
+      if current_user.nil? || current_user.id != @url.user_id
+        flash[:alert] = "Unauthorized access! Downloading analytics report is only available to the user that created the short link."
+        redirect_to root_path
+      end
+    end
+
+    @visits = @url.visits
+
+    begin
+      send_data to_csv(@visits), filename: "#{@url.short}-#{DateTime.now.strftime("%d%m%Y%H%M")}.csv", content_type: "text/csv"
+      redirect_to url_visits_path(@url)
+    rescue Exception => e
+      flash[:alert] = "#{e}"
+    end
+  end
+
   def analytics
     @short = params[:url].split("/")[-1]
     @url = Url.find_by(short: @short)
@@ -28,5 +50,17 @@ class VisitsController < ApplicationController
   end
 
   def search
+  end
+
+  private
+
+  def to_csv(visits)
+    column_names = visits[0].attributes.keys
+    CSV.generate do |csv|
+      csv << column_names
+      visits.each do |visit|
+        csv << visit.attributes.values_at(*column_names)
+      end
+    end
   end
 end
