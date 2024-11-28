@@ -23,13 +23,9 @@ visits = ips.map do |ip|
   }.merge(UrlsController.new.send(:get_location, ip))
 end
 
-fake_visits = []
-
-15000.times do |i|
-  fake_visits += visits
-  puts "Copied #{i + 1} times"
+1500.times do |i|
+  url.visits.create(visits)
+  puts "Create #{i + 1} times"
 end
-
-url.visits.create(fake_visits)
 
 
