@@ -25,6 +25,6 @@ RSpec.describe Url, type: :model do
 
   it "after creation id was converted to base62 to be short link" do
     @url.save
-    expect(@url.short).to eq("1")
+    expect(@url.short).to eq("t1")
   end
 end
