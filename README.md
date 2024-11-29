@@ -6,7 +6,7 @@ Deployment link: https://www.snippit.my
 
 ## Main Feature
 
-[snippit.my](https://www.snippit.my) is a web application that takes in a target URL and transforms it into a shorter URL for your own use (common use case is in marketing). The application takes in your target URL and stores it in a database. A unique key is produced and assigned to the target URL in the process of storing the target URL to the database. Whenever a request is made to [snippit.my](https://www.snippit.my) with a parameter *key* such as [snippit.my/tA1](), the user is simply rerouted to the target URL paired with the key, in this case *key: 1*.
+[snippit.my](https://www.snippit.my) is a web application that takes in a target URL and transforms it into a shorter URL for your own use (common use case is in marketing). The application takes in your target URL and stores it in a database. A unique key is produced and assigned to the target URL in the process of storing the target URL to the database. Whenever a request is made to [snippit.my](https://www.snippit.my) with a parameter *key* such as [snippit.my/tA1](), the user is simply rerouted to the target URL paired with the key, in this case *key: A1*.
  
 ## Other Features
 
@@ -28,7 +28,7 @@ Deployment link: https://www.snippit.my
 
  After the target URL is saved in the database, the `Url` model takes the id of that instance and convert it to a base62 number. For example, a `Url` instance of id: `123123` will return  `W1r`. It would take more than 56 billion urls before the key would exceed 6 characters (last key: `zzzzzz`). 
 
-This `Url` instance is then updated with this key and return to the user the short URL of [snippit.my/tWir](). The letter "t" is appended as a marker in routes to point it at the `redirect` action that would occur if someone makes a request at the short URL.
+This `Url` instance is then updated with this key and return to the user the short URL of [snippit.my/tWir](). The letter "t" is prepended to the key as a marker in routes to point it at the `redirect` action that would occur if someone makes a request at the short URL.
 
 ### Redirecting the Short URL
 
