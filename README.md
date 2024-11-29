@@ -6,7 +6,7 @@ Deployment link: https://www.snippit.my
 
 ## Main Feature
 
-[snippit.my](https://www.snippit.my) is a web application that takes in a target URL and transforms it into a shorter URL for your own use (common use case is in marketing). The application takes in your target URL and stores it in a database. A unique key is produced and assigned to the target URL in the process of storing the target URL to the database. Whenever a request is made to [snippit.my](https://www.snippit.my) with a parameter *key* such as [snippit.my/tA1](), the user is simply rerouted to the target URL paired with the key, in this case *key: 1*.
+[snippit.my](https://www.snippit.my) is a web application that takes in a target URL and transforms it into a shorter URL for your own use (common use case is in marketing). The application takes in your target URL and stores it in a database. A unique key is produced and assigned to the target URL in the process of storing the target URL to the database. Whenever a request is made to [snippit.my](https://www.snippit.my) with a parameter *key* such as [snippit.my/tA1](), the user is simply rerouted to the target URL paired with the key, in this case *key: A1*.
  
 ## Other Features
 
