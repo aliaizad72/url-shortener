@@ -90,7 +90,7 @@ Run this command at root to run test suite:
 rspec
 ```
 
-Integration tests are still in the process of being written with  [`rspec-rails`](https://rubygems.org/gems/rspec-rails) gem and  [`capybara`](https://rubygems.org/gems/capybara) gem.
+Integration tests are written with  [`rspec-rails`](https://rubygems.org/gems/rspec-rails) gem and  [`capybara`](https://rubygems.org/gems/capybara) gem.
 
 ## Deployment
 
