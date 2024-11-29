@@ -2,7 +2,7 @@
   <%= render 'partials/navbar' %>
   <%= render "partials/forms/url", url: @url %>
   <%= render 'partials/alert' %>
-  <div class="flex gap-5">
+  <div class="flex gap-5 text-base md:text-xl">
     <% if current_user %>
       <%= link_to "your links", user_path(current_user), class: "text-cream cursor-pointer hover:underline hover:text-vanilla font-medium" %>
     <% end %>

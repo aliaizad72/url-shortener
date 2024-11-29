@@ -1,64 +1,67 @@
-<div class="flex justify-center p-4">
-  <div class="flex justify-between items-center w-full md:w-[768px]">
-    <h1 class="text-4xl font-bold text-vanilla hover:underline"><%= link_to "snippit", root_path %></h1>
-    <div class="flex gap-4">
-      <% if current_user %>
-        <%= link_to "your links", user_path(current_user), class: "text-cream cursor-pointer hover:underline hover:text-vanilla font-medium" %>
-      <% end %>
-      <%= link_to "shortener", root_path, class: "text-cream cursor-pointer hover:underline hover:text-vanilla font-medium" %>
-      <%= link_to "search", visits_search_path, class: "text-cream cursor-pointer hover:underline hover:text-vanilla font-medium" %>
-      <% if current_user %>
-        <%= button_to "log out", destroy_user_session_path, method: :delete, class: "text-cream cursor-pointer hover:underline hover:text-vanilla font-medium" %>
-      <% else%>
-        <%= link_to "log in", new_user_session_path, class: "text-cream cursor-pointer hover:underline hover:text-vanilla font-medium" %>
-      <% end %>
+<div class="flex flex-col bg-darkslategrey min-h-screen">
+  <div class="flex justify-center p-4">
+    <div class="flex justify-between items-center w-full md:w-[768px]">
+      <h1 class="text-lg md:text-4xl font-bold text-vanilla hover:underline"><%= link_to "snippit", root_path %></h1>
+      <div class="flex text-xs md:text-base gap-2 md:gap-4">
+        <% if current_user %>
+          <%= link_to "your links", user_path(current_user), class: "text-cream cursor-pointer hover:underline hover:text-vanilla font-medium" %>
+        <% end %>
+        <%= link_to "shortener", root_path, class: "text-cream cursor-pointer hover:underline hover:text-vanilla font-medium" %>
+        <%= link_to "search", visits_search_path, class: "text-cream cursor-pointer hover:underline hover:text-vanilla font-medium" %>
+        <% if current_user %>
+          <%= button_to "log out", destroy_user_session_path, method: :delete, class: "text-cream cursor-pointer hover:underline hover:text-vanilla font-medium" %>
+        <% else%>
+          <%= link_to "log in", new_user_session_path, class: "text-cream cursor-pointer hover:underline hover:text-vanilla font-medium" %>
+        <% end %>
+      </div>
     </div>
   </div>
-</div>
 
-<% if flash[:alert] %>
-  <div class="bg-hunyadi py-2 px-3 md:w-[768px] rounded-lg text-sm text-auburn font-bold alert mx-auto" data-controller="alert">
-    <%= flash[:alert] %>
+  <% if flash[:alert] %>
+    <div class="bg-hunyadi py-2 px-3 md:w-[768px] rounded-lg text-sm text-auburn font-bold alert mx-auto" data-controller="alert">
+      <%= flash[:alert] %>
+    </div>
+  <% end %>
+
+  <div class="m-4 text-xs md:text-base md:mx-auto p-4 md:w-[768px] text-cream rounded-md border border-cream shadow-md shadow-grey-200">
+    <h5 class="truncate font-medium text-cream"><%= @url.title %></h5>
+    <div>short link: <a href="<%= redirect_url_path(@url.short) %>" target="_blank" class="font-medium text-vanilla hover:underline">snippit.my/<%= @url.short %></a></div>
+    <div class="truncate">original link: <a href="<%= @url.target %>" target="_blank" class="font-medium text-vanilla hover:underline"><%= @url.target %></a></div>
   </div>
-<% end %>
 
-<div class="m-4 md:mx-auto p-4 md:w-[768px] text-cream rounded-md border border-cream shadow-md shadow-grey-200">
-  <h5 class="truncate font-medium text-cream"><%= @url.title %></h5>
-  <div>short link: <a href="<%= redirect_url_path(@url.short) %>" target="_blank" class="font-medium text-vanilla hover:underline">snippit.my/<%= @url.short %></a></div>
-  <div class="truncate">original link: <a href="<%= @url.target %>" target="_blank" class="font-medium text-vanilla hover:underline"><%= @url.target %></a></div>
-</div>
-
-<div class="flex items-center m-4 md:w-[768px] md:mx-auto gap-3">
-  <h1 class="text-3xl font-medium text-vanilla"><%= pluralize(@visits_count, "visits") %></h1>
-  <% unless @visits_count.zero? %>
-    <%= link_to url_visits_download_path, target: "_blank" do %>
-      <svg class="w-6 mt-[2px] text-vanilla fill-current hover:text-cream cursor-pointer" viewBox="0 0 24 24"><title>download csv file</title><path d="M14,2H6C4.89,2 4,2.89 4,4V20C4,21.11 4.89,22 6,22H18C19.11,22 20,21.11 20,20V8L14,2M12,19L8,15H10.5V12H13.5V15H16L12,19M13,9V3.5L18.5,9H13Z" /></svg>
+  <div class="flex items-center m-4 md:w-[768px] md:mx-auto gap-3">
+    <h1 class="text-lg md:text-3xl font-medium text-vanilla"><%= pluralize(@visits_count, "visits") %></h1>
+    <% unless @visits_count.zero? %>
+      <%= link_to url_visits_download_path, target: "_blank" do %>
+        <svg class="w-4 md:w-6 md:mt-[2px] text-vanilla fill-current hover:text-cream cursor-pointer" viewBox="0 0 24 24"><title>download csv file</title><path d="M14,2H6C4.89,2 4,2.89 4,4V20C4,21.11 4.89,22 6,22H18C19.11,22 20,21.11 20,20V8L14,2M12,19L8,15H10.5V12H13.5V15H16L12,19M13,9V3.5L18.5,9H13Z" /></svg>
+      <% end %>
     <% end %>
+  </div>
+
+  <% unless @visits.empty? %>
+    <div class="grid grid-rows-<%= @visits.length - 1 %> text-xs md:text-sm md:w-[768px]  md:mx-auto rounded-md border border-vanilla shadow-md shadow-grey-200 p-3 m-2">
+      <div class="grid grid-cols-8 md:w-[768px] md:mx-auto rounded-md">
+        <div class="p-2 py-3 col-span-2 font-bold rounded-md text-vanilla">ip address</div>
+        <div class="p-2 py-3 font-bold col-span-2 rounded-md text-vanilla">city</div>
+        <div class="p-2 py-3 font-bold col-span-2 rounded-md text-vanilla">country</div>
+        <div class="p-2 py-3 font-bold col-span-2 rounded-md text-vanilla">datetime</div>
+      </div>
+      <% @visits.each_with_index do |visit, index| %>
+        <div class="grid grid-cols-8 rounded text-cream">
+          <div class="p-2 py-3 col-span-2 truncate"><%= visit.ip %></div>
+          <div class="p-2 py-3 col-span-2 truncate"><%= visit.city %></div>
+          <div class="p-2 py-3 col-span-2 truncate"><%= visit.country %></div>
+          <div class="p-2 py-3 col-span-2 "><%= local_time(Time.new(visit.request_time), "%d/%m/%y %-l:%M%P") %></div>
+        </div>
+      <% end %>
+    </div>
+  <% end %>
+
+  <% if @pagy.count > @pagy.limit %>
+    <div class="flex flex-col items-center gap-4 w-full p-3">
+      <%== pagy_info(@pagy, item_name: "visits".pluralize(@pagy.count)).downcase.sub("in total", "most recent visits") %>
+      <%== pagy_nav(@pagy) %>
+    </div>
   <% end %>
 </div>
 
-<% unless @visits.empty? %>
-  <div class="grid grid-rows-<%= @visits.length - 1 %> text-sm md:w-[768px]  md:mx-auto rounded-md border border-vanilla shadow-md shadow-grey-200 p-3">
-    <div class="grid grid-cols-8 text-sm md:w-[768px] md:mx-auto rounded-md">
-      <div class="p-2 py-3 col-span-2 font-bold rounded-md text-vanilla">ip address</div>
-      <div class="p-2 py-3 font-bold col-span-2 rounded-md text-vanilla">city</div>
-      <div class="p-2 py-3 font-bold col-span-2 rounded-md text-vanilla">country</div>
-      <div class="p-2 py-3 font-bold col-span-2 rounded-md text-vanilla">datetime</div>
-    </div>
-    <% @visits.each_with_index do |visit, index| %>
-      <div class="grid grid-cols-8 text-sm rounded text-cream">
-        <div class="p-2 py-3 col-span-2 truncate"><%= visit.ip %></div>
-        <div class="p-2 py-3 col-span-2 truncate"><%= visit.city %></div>
-        <div class="p-2 py-3 col-span-2 truncate"><%= visit.country %></div>
-        <div class="p-2 py-3 col-span-2 "><%= local_time(Time.new(visit.request_time), "%d/%m/%y %-l:%M%P") %></div>
-      </div>
-    <% end %>
-  </div>
-<% end %>
-
-<% if @pagy.count > @pagy.limit %>
-  <div class="flex flex-col items-center gap-4 fixed bottom-10 w-full">
-    <%== pagy_info(@pagy, item_name: "visits".pluralize(@pagy.count)).downcase.sub("in total", "most recent visits") %>
-    <%== pagy_nav(@pagy) %>
-  </div>
-<% end %>
