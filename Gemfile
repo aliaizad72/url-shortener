@@ -58,7 +58,7 @@ group :development, :test do
   # Capybara, the library that allows us to interact with the browser using Ruby
   gem 'capybara'
 
-  gem 'selenium-webdriver', '~> 4.26'
+  gem 'selenium-webdriver', '~> 4.27'
 
   gem 'database_cleaner', '~> 2.0', '>= 2.0.2'
 end
