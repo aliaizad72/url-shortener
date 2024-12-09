@@ -74,7 +74,7 @@ gem "nokogiri", "~> 1.16"
 
 gem "net", "~> 0.3.3"
 
-gem "recaptcha", "~> 5.17"
+gem "recaptcha", "~> 5.18"
 
 gem "local_time", "~> 3.0"
 
