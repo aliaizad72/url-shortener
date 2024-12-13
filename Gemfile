@@ -70,7 +70,7 @@ group :development do
   gem "letter_opener"
 end
 
-gem "nokogiri", "~> 1.16"
+gem "nokogiri", "~> 1.17"
 
 gem "net", "~> 0.3.3"
 
